@@ -97,6 +97,8 @@ export interface Course {
   students_numbers: string;       // ✅ Add this
   starts: string;                 // ✅ Add this (rating)
   created_at: string;
+  WhatLearn: string
+
   
 
   price?: number;
