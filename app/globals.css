@@ -131,6 +131,10 @@
   }
 }
 
+pre{
+      font-family: "Cairo", sans-serif !important;
+}
+
 /* ========================================
    🎨 EduVento Custom Utility Classes (UPDATED WITH GRADIENTS)
 ======================================== */
