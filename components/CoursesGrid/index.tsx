@@ -5,23 +5,7 @@ import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, BookOpen, Filter, Search } from 'lucide-react';
 import { fetchAllCourses } from '@/lib/api';
 import CourseCard from '../CourseCard';
-
-// ✅ Course interface matching your API response
-interface CourseApiResponse {
-  id: number;
-  title: string;
-  description: string;
-  full_description: string;
-  image_url: string;
-  duration: string;
-  level: string;
-  Instructor_name: string;
-  Instructor_image_url: string;
-  students_numbers: string;
-  starts: string; // rating
-  created_at: string;
-}
-
+import { CourseApiResponse } from '@/lib/types';
 
 const CoursesGrid = () => {
   const [courses, setCourses] = useState<CourseApiResponse[]>([]);
@@ -31,23 +15,25 @@ const CoursesGrid = () => {
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLevel, setSelectedLevel] = useState('');
-  
+
   const coursesPerPage = 12;
 
   useEffect(() => {
     const getCourses = async () => {
       try {
-        console.log('🚀 CoursesGrid: Starting to fetch courses...');
         const data = await fetchAllCourses();
-        
-        console.group('🎨 Frontend Processing - CoursesGrid');
+
+         
+        console.log('📊  courses :', data);
         console.log('📊 Total courses received:', data.length);
-        console.log('📋 First course data:', data[0]);
-        console.log('🏷️  Available levels:', Array.from(new Set(data.map(course => course.level))));
+        // console.log('🏷️  Available levels:', Array.from(new Set(data.map(course => course.level))));
         console.groupEnd();
-        
-        setCourses(data);
-        setFilteredCourses(data);
+
+        // ✅ Sort courses by ID (ascending). Use b.id - a.id for descending.
+        const sortedCourses = [...data].sort((a, b) => a.id - b.id);
+
+        setCourses(sortedCourses);
+        setFilteredCourses(sortedCourses);
         setLoading(false);
       } catch (err: any) {
         console.error('❌ CoursesGrid Error:', err);
@@ -90,7 +76,7 @@ const CoursesGrid = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-   const availableLevels = Array.from(new Set(courses.map(course => course.level)));
+  const availableLevels = Array.from(new Set(courses.map(course => course.level)));
 
   if (loading) {
     return (
