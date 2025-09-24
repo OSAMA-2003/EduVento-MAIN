@@ -30,11 +30,7 @@ export default function InstructorProfile({ instructor }: InstructorProfileProps
         <div className="md:col-span-2 flex flex-col justify-center py-8 px-6 md:px-10 space-y-5">
           <h2 className="text-3xl md:text-4xl font-bold text-logo-blue">{instructor.Instructor_name}</h2>
 
-          {instructor.specialization && (
-            <span className="inline-block bg-secondary-green/10 text-secondary-green text-sm font-medium px-4 py-1 rounded-full w-fit">
-              {instructor.specialization}
-            </span>
-          )}
+         
 
           
 

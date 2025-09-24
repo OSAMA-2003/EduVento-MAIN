@@ -8,26 +8,13 @@ import { ArrowLeft, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import { fetchAllCourses } from '@/lib/api';
 import CourseCard from '@/components/CourseCard';
+import { CourseApiResponse } from '@/lib/types';
+
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-// ✅ Updated interface to match your API response
-interface CourseApiResponse {
-  id: number;
-  title: string;
-  description: string;
-  full_description: string;
-  image_url: string;
-  duration: string;
-  level: string;
-  Instructor_name: string;
-  Instructor_image_url: string;
-  students_numbers: string;
-  starts: string; // rating
-  created_at: string;
-}
 
 
 
@@ -43,44 +30,25 @@ const PopularCourses = () => {
   const [courses, setCourses] = useState<CourseApiResponse[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        console.log('🚀 PopularCourses: Fetching popular courses...');
-        const data = await fetchAllCourses();
-        
-        // ✅ Get top courses based on rating or student numbers
-        const popular = data
-          .sort((a, b) => {
-            const ratingA = parseFloat(a.starts) || 0;
-            const ratingB = parseFloat(b.starts) || 0;
-            const studentsA = parseInt(a.students_numbers) || 0;
-            const studentsB = parseInt(b.students_numbers) || 0;
-            
-            // Sort by rating first, then by student numbers
-            if (ratingB !== ratingA) {
-              return ratingB - ratingA;
-            }
-            return studentsB - studentsA;
-          })
-          .slice(0, 8); // Get top 8 popular courses
+useEffect(() => {
+  const fetchCourses = async () => {
+    try {
+      console.log('🚀 PopularCourses: Fetching popular courses...');
+      const data = await fetchAllCourses();
 
-        console.group('🎨 PopularCourses - Data Processing');
-        console.log('📊 Total courses fetched:', data.length);
-        console.log('⭐ Popular courses selected:', popular.length);
-        console.log('📋 Popular courses:', popular);
-        console.groupEnd();
-        
-        setCourses(popular);
-      } catch (err) {
-        console.error('❌ PopularCourses Error:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
+      // ✅ Use backend order directly (limit to 8 if needed)
+      const popular = data.slice(0, 8);
 
-    fetchCourses();
-  }, []);
+      setCourses(popular);
+    } catch (err) {
+      console.error('❌ PopularCourses Error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchCourses();
+}, []);
 
   return (
     <section className="py-20 bg-gradient-secondary-enhanced relative overflow-hidden" ref={ref}>
@@ -114,7 +82,7 @@ const PopularCourses = () => {
 
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg">
             <span className="text-primary-yellow">الدورات</span>{" "}
-            <span className="text-white">الأكثر شعبية</span>
+            <span className="text-white">الأكثر طلبًا</span>
           </h2>
           
           <motion.div

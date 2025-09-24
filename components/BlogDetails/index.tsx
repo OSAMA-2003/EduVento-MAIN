@@ -76,12 +76,12 @@ const BlogDetails = ({ blog, relatedBlogs }: BlogDetailsProps) => {
         return 'bg-logo-blue';
     }
   }
-
-  return (
+  
+return (
     <div className="bg-gray-50 min-h-screen">
       {/* ✅ Hero Section */}
       <section
-        className="relative bg-gradient-primary-enhanced text-white py-24 md:py-32 overflow-hidden"
+        className="relative bg-gradient-primary-enhanced  text-white py-24 md:py-32 overflow-hidden"
         ref={heroRef}
       >
         {/* 💫 Background shapes */}
@@ -109,7 +109,7 @@ const BlogDetails = ({ blog, relatedBlogs }: BlogDetailsProps) => {
             )}
 
             <motion.h1
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight drop-shadow-2xl"
+              className="text-4xl md:text-6xl lg:text-7xl !leading-[55px] md:!leading-[100px] font-bold mb-6  drop-shadow-2xl"
               initial={{ opacity: 0, y: 50 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8 }}
@@ -117,7 +117,7 @@ const BlogDetails = ({ blog, relatedBlogs }: BlogDetailsProps) => {
               {blog.title || 'عنوان المقال'}
             </motion.h1>
 
-           
+
 
             {/* Meta information */}
             <motion.div
@@ -167,11 +167,11 @@ const BlogDetails = ({ blog, relatedBlogs }: BlogDetailsProps) => {
         </div>
       </section>
 
-        
 
-      
+
+
       <div className="container mx-auto px-4 py-20 relative">
-          {/* Breadcrumb */}
+        {/* Breadcrumb */}
         <motion.nav
           className="mb-12 max-w-5xl mx-auto "
           initial={{ opacity: 0, y: 20 }}
@@ -207,17 +207,15 @@ const BlogDetails = ({ blog, relatedBlogs }: BlogDetailsProps) => {
               >
                 <div className="h-2 bg-gradient-to-r from-logo-blue via-secondary-green to-primary-yellow"></div>
                 <div className="p-8 md:p-12">
-                  <motion.article
-                    className="prose prose-lg max-w-none text-gray-800 "
+                  <motion.pre
+                    className=" max-w-none text-gray-800 text-lg md:text-xl
+                               whitespace-pre-wrap break-words"
                     initial={{ opacity: 0, y: 30 }}
                     animate={isContentInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8, delay: 0.4 }}
-                  >
-                    <div
-                      className="text-gray-700 !leading-[40px]   text-justify text-lg md:text-xl "
-                      dangerouslySetInnerHTML={{ __html: safeContent }}
-                    />
-                  </motion.article>
+                    dangerouslySetInnerHTML={{ __html: safeContent }}
+                  />
+
                 </div>
               </motion.div>
 
@@ -231,7 +229,7 @@ const BlogDetails = ({ blog, relatedBlogs }: BlogDetailsProps) => {
                 {/* Decorative elements */}
                 <div className="absolute top-4 right-4 w-20 h-20 bg-white/20 rounded-full -translate-y-10 translate-x-10"></div>
                 <div className="absolute bottom-4 left-4 w-16 h-16 bg-white/10 rounded-full translate-y-8 -translate-x-8"></div>
-                
+
                 <div className="flex flex-col items-center text-center sm:flex-row sm:text-right sm:items-start sm:gap-6 relative z-10">
                   <div className="w-20 h-20 rounded-2xl bg-white/30 backdrop-blur-sm border-2 border-white/40 flex items-center justify-center mb-4 sm:mb-0 shadow-xl">
                     <User className="h-10 w-10 text-primary-dark" />
@@ -250,7 +248,7 @@ const BlogDetails = ({ blog, relatedBlogs }: BlogDetailsProps) => {
 
             {/* ✅ Enhanced Sidebar */}
             <div className="xl:col-span-1 flex justify-center items-center ">
-              
+
               {/* Article Stats
               <motion.div
                 className="card-primary mb-8  top-8"
@@ -294,21 +292,20 @@ const BlogDetails = ({ blog, relatedBlogs }: BlogDetailsProps) => {
               >
                 <h3 className="text-xl font-bold text-logo-blue mb-6">إجراءات سريعة</h3>
                 <div className="space-y-3">
-                  <button 
+                  <button
                     onClick={handleShare}
                     className="w-full btn-gradient-primary -z-10 flex items-center justify-center gap-2"
                   >
                     <Share2 className="h-4 w-4" />
                     <span>مشاركة المقال</span>
                   </button>
-                  
-                  <button 
+
+                  <button
                     onClick={() => setIsLiked(!isLiked)}
-                    className={`w-full border-2 px-4 py-3 rounded-xl font-semibold transition duration-300 flex items-center justify-center gap-2 ${
-                      isLiked 
-                        ? 'border-red-300 bg-red-50 text-red-600' 
+                    className={`w-full border-2 px-4 py-3 rounded-xl font-semibold transition duration-300 flex items-center justify-center gap-2 ${isLiked
+                        ? 'border-red-300 bg-red-50 text-red-600'
                         : 'border-gray-300 bg-white text-gray-700 hover:border-red-300 hover:bg-red-50 hover:text-red-600'
-                    }`}
+                      }`}
                   >
                     <Heart className={`h-4 w-4 ${isLiked ? 'fill-current' : ''}`} />
                     <span>{isLiked ? 'تم الإعجاب' : 'أعجبني'}</span>
@@ -320,9 +317,10 @@ const BlogDetails = ({ blog, relatedBlogs }: BlogDetailsProps) => {
         </div>
       </div>
 
-    
+
     </div>
   );
 };
 
 export default BlogDetails;
+

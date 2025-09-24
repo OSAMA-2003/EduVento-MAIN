@@ -228,7 +228,7 @@ const StorySection = () => {
               <Zap className="h-12 w-12 text-primary-yellow" />
             </div>
             <p className="text-2xl md:text-3xl font-bold mb-4">
-  سوق الشغل دلوقتي مش بيدوّر على &quot;المتفوقين&quot;...
+  سوق العمل دلوقتي مش بيدوّر على &quot;المتفوقين&quot;...
 </p>
             <p className="text-2xl md:text-3xl font-bold text-primary-yellow">
   بيدوّر على &quot;الجاهزين&quot;!

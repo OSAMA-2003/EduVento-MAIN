@@ -13,16 +13,15 @@ import {
   Play,
   CheckCircle,
   Globe,
-  ArrowLeft,
   Download,
   Share2,
   Heart,
   TrendingUp,
   MessageCircle,
-  Eye
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import CourseCard from '../CourseCard';
 
 interface CourseDetailsProps {
   course: Course;
@@ -130,7 +129,7 @@ const CourseDetails = ({ course, relatedCourses }: CourseDetailsProps) => {
                   {[
                     { icon: <Clock className="h-5 w-5" />, label: course.duration, color: 'bg-logo-blue' },
                     { icon: <Users className="h-5 w-5" />, label: `${course.students_numbers} طالب`, color: 'bg-secondary-green' },
-                    { icon: <Star className="h-5 w-5" />, label: `${course.starts} تقييم`, color: 'bg-primary-yellow' },
+                    { icon: <Star className="h-5 w-5" />, label: `${course.starts} `, color: 'bg-primary-yellow' },
                     { icon: <BookOpen className="h-5 w-5" />, label: `${learningPoints.length} موضوع`, color: 'bg-alert-red' },
                   ].map((stat, index) => (
                     <motion.div
@@ -424,7 +423,6 @@ const CourseDetails = ({ course, relatedCourses }: CourseDetailsProps) => {
                     { label: 'المستوى', value: course.level, icon: <TrendingUp className="h-4 w-4" /> },
                     { label: 'المدة', value: course.duration, icon: <Clock className="h-4 w-4" /> },
                     { label: 'عدد الطلاب', value: course.students_numbers, icon: <Users className="h-4 w-4" /> },
-                    { label: 'التقييم', value: course.starts, icon: <Star className="h-4 w-4" /> },
                     { label: 'اللغة', value: course.language || 'العربية', icon: <Globe className="h-4 w-4" /> },
                   ].map((item, index) => (
                     <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-300 group">
@@ -522,105 +520,52 @@ const CourseDetails = ({ course, relatedCourses }: CourseDetailsProps) => {
         </div>
       </div>
 
-      {/* ✅ Enhanced Related Courses */}
-      {relatedCourses && relatedCourses.length > 0 && (
-        <section className="py-20 bg-gradient-secondary-enhanced relative overflow-hidden" ref={relatedRef}>
-          <div className="absolute inset-0 bg-gradient-mesh opacity-90"></div>
-          <div className="absolute inset-0 bg-pattern opacity-5"></div>
-          
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-7xl mx-auto">
-              
-              <motion.div
-                className="text-center mb-16"
-                initial={{ opacity: 0, y: 30 }}
-                animate={isRelatedInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="inline-block bg-primary-yellow backdrop-blur-sm text-primary-dark px-6 py-2 rounded-full font-semibold text-sm uppercase tracking-wide shadow-lg mb-6">
-                  كورسات مشابهة
-                </div>
-                
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-2xl">
-                  كورسات قد تعجبك
-                </h2>
-                
-                <div className="w-24 h-2 bg-gradient-to-r from-primary-yellow to-secondary-green mx-auto rounded-full shadow-lg"></div>
-              </motion.div>
+    {/* ✅ Enhanced Related Courses */}
+{relatedCourses && relatedCourses.length > 0 && (
+  <section
+    className="py-20 bg-gradient-secondary-enhanced relative overflow-hidden"
+    ref={relatedRef}
+  >
+    <div className="absolute inset-0 bg-gradient-mesh opacity-90"></div>
+    <div className="absolute inset-0 bg-pattern opacity-5"></div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {relatedCourses.slice(0, 3).map((relatedCourse, index) => (
-                  <motion.div
-                    key={relatedCourse.id}
-                    className="bg-white/95 backdrop-blur-sm rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 group border border-white/20"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={isRelatedInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: index * 0.1, duration: 0.6 }}
-                    whileHover={{ y: -8, scale: 1.02 }}
-                  >
-                    <div className="relative overflow-hidden">
-                      {relatedCourse.image_url && relatedCourse.image_url !== "test image_url 1" ? (
-                        <Image
-                          src={relatedCourse.image_url}
-                          alt={relatedCourse.title}
-                          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                           width={250}
-                          height={150}
-                        />
-                      ) : (
-                        <div className="w-full h-48 bg-gradient-radial-blend flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                          <BookOpen className="h-16 w-16 text-white/80 drop-shadow-lg" />
-                        </div>
-                      )}
-                      
-                      {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-logo-blue/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                        <div className="bg-white/90 backdrop-blur-sm rounded-full p-3 transform scale-75 group-hover:scale-100 transition-transform duration-300">
-                          <Eye className="h-6 w-6 text-logo-blue" />
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="p-6 relative z-10">
-                      <h3 className="text-xl font-bold text-primary-dark mb-3 group-hover:text-logo-blue transition-colors duration-300 line-clamp-2">
-                        {relatedCourse.title}
-                      </h3>
-                      
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-2 group-hover:text-gray-800 transition-colors duration-300">
-                        {relatedCourse.description}
-                      </p>
-                      
-                      <div className="flex items-center justify-between mb-4 text-sm">
-                        <div className="flex items-center gap-1">
-                          <Star className="h-4 w-4 text-primary-yellow fill-current" />
-                          <span className="font-medium">{relatedCourse.starts}</span>
-                        </div>
-                        <div className="flex items-center gap-1 text-gray-500">
-                          <Users className="h-4 w-4" />
-                          <span>{relatedCourse.students_numbers}</span>
-                        </div>
-                      </div>
-                      
-                      <Link
-                        href={`/courses/${relatedCourse.id}`}
-                        className="group/btn btn-gradient-primary w-full flex items-center justify-center gap-2 relative overflow-hidden"
-                      >
-                        <span className="relative z-10">عرض التفاصيل</span>
-                        <ArrowLeft className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform duration-300 relative z-10" />
-                        
-                        <div className="absolute inset-0 bg-white/20 translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300"></div>
-                      </Link>
-                    </div>
-
-                    {/* Decorative element */}
-                    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-logo-blue via-secondary-green to-primary-yellow transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+    <div className="container mx-auto px-4 relative z-10">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isRelatedInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="inline-block bg-primary-yellow backdrop-blur-sm text-primary-dark px-6 py-2 rounded-full font-semibold text-sm uppercase tracking-wide shadow-lg mb-6">
+            كورسات مشابهة
           </div>
-        </section>
-      )}
+
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-2xl">
+            كورسات قد تعجبك
+          </h2>
+
+          <div className="w-24 h-2 bg-gradient-to-r from-primary-yellow to-secondary-green mx-auto rounded-full shadow-lg"></div>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {relatedCourses.slice(0, 3).map((course, index) => (
+            <div
+              key={course.id}
+            >
+              <CourseCard
+                course={course}
+                index={index}
+                variant={index === 0 ? "featured" : "default"}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
     </div>
   );
 };

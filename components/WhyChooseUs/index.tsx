@@ -260,9 +260,9 @@ const WhyChooseUs = () => {
                 مش لوحدك في الرحلة دي
               </h3>
               
-              <p className="text-xl mb-8 opacity-90 max-w-3xl mx-auto leading-relaxed">
+               <p className="text-xl mb-8 opacity-90 max-w-3xl mx-auto leading-relaxed">
                 انضم لـ <span className="text-primary-yellow font-bold">مئات الطلاب</span> اللي حققوا أهدافهم المهنية 
-                بمساعدة خبرانا ولحقوا يشتغلوا في وظايف أحلامهم
+                بمساعدة المدربين والموجهين معانا ولحقوا يشتغلوا في وظايف أحلامهم
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

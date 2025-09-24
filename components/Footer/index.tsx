@@ -202,7 +202,7 @@ const Footer = () => {
             <div className="flex flex-col md:flex-row items-center gap-4">
               <p className="text-gray-300 text-sm flex items-center gap-2">
                 <Heart className="h-4 w-4 text-primary-yellow" />
-                © {currentYear} Eduvento Academy. جميع الحقوق محفوظة.
+                © {currentYear} Eduvento Company. جميع الحقوق محفوظة.
               </p>
               <div className="flex items-center gap-2 text-xs text-gray-400">
                 <Users className="h-3 w-3" />

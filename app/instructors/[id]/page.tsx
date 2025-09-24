@@ -53,9 +53,6 @@ export default async function InstructorDetailsPage({ params }: InstructorPagePr
           </span>
         )}
         
-        <p className="mt-8 max-w-xl text-center text-lg text-indigo-200 whitespace-pre-line">
-          {instructor.about_Instructor || 'مدرب محترف في Eduvento'}
-        </p>
       </section>
 
       {/* Profile/Main Content */}
